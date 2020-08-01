@@ -1,0 +1,9 @@
+clear all
+clc
+
+FDetect = vision.CascadeObjectDetector;
+
+Image = imread('img.');
+
+BB = step(FDtect, Image);
+

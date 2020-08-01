@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<componentData>
+  <component>
+    <componentBaseName>hardwaresupportpkgs/testmeas/imaq_genericvideo</componentBaseName>
+    <componentFileName>hardwaresupportpkgs/testmeas/imaq_genericvideo_glnxa64_1439542396.zip</componentFileName>
+    <componentName>hardwaresupportpkgs/testmeas/imaq_genericvideo_glnxa64</componentName>
+    <componentVersion>1439542396</componentVersion>
+    <locale />
+    <numFiles>2</numFiles>
+    <platformList>
+      <platform>glnxa64</platform>
+    </platformList>
+    <releaseFamily>R2015b</releaseFamily>
+    <size>53527</size>
+    <type />
+    <uncompressedBytes>152684</uncompressedBytes>
+  </component>
+</componentData>
+
