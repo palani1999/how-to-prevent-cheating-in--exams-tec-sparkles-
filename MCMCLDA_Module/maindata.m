@@ -164,3 +164,46 @@ Coordsplot(pred.coords(:,[lookupPart('lsho','lelb','lwri')]),'go-','linewidth',3
 Coordsplot(pred.coords(:,[lookupPart('rsho','relb','rwri')]),'bo-','linewidth',3)
 Coordsplot(pred.coords(:,[lookupPart('lsho','lelb','lwri')]+6),'go-','linewidth',3)
 Coordsplot(pred.coords(:,[lookupPart('rsho','relb','rwri')]+6),'bo-','linewidth',3)
+%  multi class markov chain LDA
+
+numStates = 5;                 %Number of states of the Markov Chain.
+L = length(pred.coords(:));            %length of observational sequence.
+T = 10;               %Plot the first T states of the sequence. T should be smaller than L.
+
+%First we produce a sequence that we later use as observational data
+%for the construction of the Markov chain.
+
+y_obs = zeros(L,1);         %y_obs will be the input or OBServational sequence.
+P = rand(numStates);                %randomly chosen transition probability matrix used to construct input sequence.
+P_cum = P;
+for j=2:numStates
+    P_cum(:,j) = P_cum(:,j-1) + P(:,j);     %cumulative version of P.
+end
+for j=1:numStates
+    P(:,j) = P(:,j)./P_cum(:,numStates);                 %Normalize transition matrix
+end
+P_cum = P;
+for j=2:numStates
+    P_cum(:,j) = P_cum(:,j-1) + P(:,j);     %normalized cumulative version of P.
+end
+
+y_obs(1) = 1;               %sequence starts with a 1;
+
+for t=1:L-1                 %construct entire sequence
+    r = rand;
+    y_obs(t+1) = sum(r>P_cum(y_obs(t),:))+1;
+end
+
+%Plot the sequence:
+
+figure(3)
+subplot(2,1,1)
+plot(y_obs(1:T),'-o','linewidth',1.5)          %plot the first T states of the sequence
+xlim([-10 T+10])
+ylim([0.5 numStates+0.5])
+set(gca,'YTick',1:numStates)
+xlabel('observations')
+ylabel('state')
+title('Multi Class Markov Chain Modelling');
+%%
+%Estimation of transition probability matrix.
